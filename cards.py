@@ -295,6 +295,15 @@ class CardDeck:
 	def shuffle(self):
 
 		random.shuffle(self.cards)
+		
+
+	def draw(self):
+		drawn = self.cards.pop()
+
+		self.numcards += -1
+
+
+		return drawn
 
 
 
