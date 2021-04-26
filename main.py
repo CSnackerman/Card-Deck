@@ -1,16 +1,25 @@
 import cards
 
-
+# create a deck of cards object
 deck = cards.CardDeck()
 
+# mixup the cards
 deck.shuffle()
 
+
+# view the deck laid out
+print ("--- shuffled deck ---")
 print (deck)
 
+# print a spacer
 print ("\n\n")
 
-suit = cards.Suit.DIAMOND
+# create a single card instance
+suit = cards.SPADE
 mycard = cards.Card(suit, 10)
+mycard.randomize()
 
-print ("--- mycard ---")
+
+# set the card on the console
+print ("--- my card ---")
 print (mycard)
