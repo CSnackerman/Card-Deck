@@ -75,6 +75,7 @@ def numbertosuit(num):
 	elif num == HEART	:	return [2, "♥︎"]
 	elif num == DIAMOND : 	return [3, "♦︎"]
 	else:
+		print ("invalid suit number")
 		return [-1, "error"]
 
 
@@ -87,7 +88,7 @@ class Card:
 	#-------------
 	# Function 1 │ ---> initializer/startup/setup
 	#-------------
-	def __init__(self, s, v):
+	def __init__ (self, s, v):
 
 		# declares
 		self.suit  = None
@@ -95,13 +96,7 @@ class Card:
 		self.value = None
 
 		# init suit
-		if   s == SPADE	  :	self.suit = [0, "♠︎"]
-		elif s == CLUB	  :	self.suit = [1, "♣︎"]
-		elif s == HEART	  :	self.suit = [2, "♥︎"]
-		elif s == DIAMOND : self.suit = [3, "♦︎"]
-		else:
-			self.suit = [-1, "error"]
-			print ("invalid suit")
+		self.suit = numbertosuit(s) 
 
 		# init value
 		self.value = v
