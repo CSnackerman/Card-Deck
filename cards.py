@@ -201,12 +201,15 @@ class CardDeck:
 		# declarations
 		output_string = COLOR
 		columns = 7
+
+		print ("numcards =", self.numcards)	# DEBUG
+		print ("decksize =", len(self.cards))
 		
 
 		# loop through every card in order to 
 		# print 4 rows of characters which
 		# represent the columns of cards
-		for card in range(0, self.numcards - 1, columns):
+		for card in range(0, self.numcards, columns):
 			
 
 			# --- 1st row ---
@@ -290,18 +293,21 @@ class CardDeck:
 
 
 	#-------------
-	# Function 9 │ ---> shuffle the CardDeck __cards list
+	# Function 9 │ ---> shuffle the CardDeck cards list
 	#-------------
 	def shuffle(self):
 
 		random.shuffle(self.cards)
-		
 
+
+	#-------------
+	# Function 9 │ ---> draw a card off the top of the deck
+	#-------------
 	def draw(self):
+
 		drawn = self.cards.pop()
 
 		self.numcards += -1
-
 
 		return drawn
 
