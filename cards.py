@@ -109,7 +109,7 @@ class Card:
 		else:
 			outputstr += "┍━━┑" + "\n│" + n + s + "│"+ "\n│" + s + n + "│" + "\n┕━━┙"
 
-		return WHITE + outputstr
+		return outputstr + WHITE
 
 
 	#-------------
