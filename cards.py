@@ -45,6 +45,38 @@ DIAMOND =  3
 
 TOTAL 	=  4
 
+# Utility functions (converters)
+
+# convert a card value into a name string 
+def valuetoname(val):
+	if		val == 1  :	return "A"
+	elif 	val == 2  :	return "2"
+	elif 	val == 3  :	return "3"
+	elif 	val == 4  :	return "4"
+	elif 	val == 5  :	return "5"
+	elif 	val == 6  :	return "6"
+	elif 	val == 7  :	return "7"
+	elif 	val == 8  :	return "8"
+	elif 	val == 9  :	return "9"
+	elif 	val == 10 :	return "10"
+	elif 	val == 11 :	return "J"
+	elif 	val == 12 :	return "Q"
+	elif 	val == 13 :	return "K"
+	elif 	val == 14 :	return "A"
+	else:
+		print("invalid card value")
+		return "error"
+
+
+
+def numbertosuit(num):
+	if   num == SPADE	:	return [0, "♠︎"]
+	elif num == CLUB	:	return [1, "♣︎"]
+	elif num == HEART	:	return [2, "♥︎"]
+	elif num == DIAMOND : 	return [3, "♦︎"]
+	else:
+		return [-1, "error"]
+
 
 #  [] [] []
 #===========
@@ -75,24 +107,11 @@ class Card:
 		self.value = v
 
 		# init name
-		if		self.value == 1  :	self.name = "A"
-		elif 	self.value == 2  :	self.name = "2"
-		elif 	self.value == 3  :	self.name = "3"
-		elif 	self.value == 4  :	self.name = "4"
-		elif 	self.value == 5  :	self.name = "5"
-		elif 	self.value == 6  :	self.name = "6"
-		elif 	self.value == 7  :	self.name = "7"
-		elif 	self.value == 8  :	self.name = "8"
-		elif 	self.value == 9  :	self.name = "9"
-		elif 	self.value == 10 :	self.name = "10"
-		elif 	self.value == 11 :	self.name = "J"
-		elif 	self.value == 12 :	self.name = "Q"
-		elif 	self.value == 13 :	self.name = "K"
-		elif 	self.value == 14 :	self.name = "A"
-		else:
-			print("invalid value")
+		self.name = valuetoname(self.value)
+
+		# set the card value to zero if invalid number (prevent cheating!)
+		if self.getname() == "error":
 			self.value = 0
-			self.name = "error"
 
 
 	#-------------
@@ -110,36 +129,6 @@ class Card:
 			outputstr += "┍━━┑" + "\n│" + n + s + "│"+ "\n│" + s + n + "│" + "\n┕━━┙"
 
 		return outputstr + WHITE
-
-
-	#-------------
-	# Function 10 │ ---> randomly changes the suit & val and name
-	#-------------
-	def randomize(self):
-		self.value = random.randint(1, 14)
-
-		s = random.randint(0, 3)
-
-		if   s == SPADE	  :	self.suit = [0, "♠︎"]
-		elif s == CLUB	  :	self.suit = [1, "♣︎"]
-		elif s == HEART	  :	self.suit = [2, "♥︎"]
-		elif s == DIAMOND : self.suit = [3, "♦︎"]
-
-		
-		if		self.value == 1  :	self.name = "A"
-		elif 	self.value == 2  :	self.name = "2"
-		elif 	self.value == 3  :	self.name = "3"
-		elif 	self.value == 4  :	self.name = "4"
-		elif 	self.value == 5  :	self.name = "5"
-		elif 	self.value == 6  :	self.name = "6"
-		elif 	self.value == 7  :	self.name = "7"
-		elif 	self.value == 8  :	self.name = "8"
-		elif 	self.value == 9  :	self.name = "9"
-		elif 	self.value == 10 :	self.name = "10"
-		elif 	self.value == 11 :	self.name = "J"
-		elif 	self.value == 12 :	self.name = "Q"
-		elif 	self.value == 13 :	self.name = "K"
-		elif 	self.value == 14 :	self.name = "A"
 
 
 	#-------------
@@ -165,6 +154,18 @@ class Card:
 	#-------------
 	def value(self):
 		return self.value
+
+	#-------------
+	# Function 10 │ ---> randomly changes the suit & val and name
+	#-------------
+	def randomize(self):
+		self.value = random.randint (1, 14)
+
+		s = random.randint (0, 3)
+
+		self.suit = numbertosuit (s)
+		
+		self.name = valuetoname (self.value)
 
 
 
@@ -310,7 +311,6 @@ class CardDeck:
 		self.numcards += -1
 
 		return drawn
-
 
 
 # TEST CODE
