@@ -47,7 +47,7 @@ TOTAL 	=  4
 
 
 #=-=-=-=-=-=-=-=-=-=|
-# Utility functions |
+# Utility Functions |
 #	(converters)	|
 #=-=-=-=-=-=-=-=-=-=|
 
@@ -156,7 +156,7 @@ class Card:
 		return self.value
 
 	#-------------
-	# Function 10 │ ---> randomly changes the suit & val and name
+	# Function 7 │ ---> randomly changes the suit & val and name
 	#-------------
 	def randomize(self):
 		self.value = random.randint (1, 14)
@@ -176,7 +176,7 @@ class Card:
 class CardDeck:
 
 	#-------------
-	# FUNCTION 7 │ ---> initializer/startup/setup
+	# Function 7 │ ---> initializer/startup/setup
 	#-------------
 	def __init__(self, numcards=52):
 		
@@ -302,7 +302,7 @@ class CardDeck:
 
 
 	#-------------
-	# Function 9 │ ---> draw a card off the top of the deck
+	# Function 10 │ ---> draw a card off the top of the deck
 	#-------------
 	def draw(self):
 
