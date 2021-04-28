@@ -45,7 +45,11 @@ DIAMOND =  3
 
 TOTAL 	=  4
 
-# Utility functions (converters)
+
+#=-=-=-=-=-=-=-=-=-=|
+# Utility functions |
+#	(converters)	|
+#=-=-=-=-=-=-=-=-=-=|
 
 # convert a card value into a name string 
 def valuetoname(val):
@@ -68,7 +72,7 @@ def valuetoname(val):
 		return "error"
 
 
-
+# convert a number inclusive between 0 and 3 to a suit symbol
 def numbertosuit(num):
 	if   num == SPADE	:	return [0, "♠︎"]
 	elif num == CLUB	:	return [1, "♣︎"]
@@ -77,6 +81,7 @@ def numbertosuit(num):
 	else:
 		print ("invalid suit number")
 		return [-1, "error"]
+
 
 
 #  [] [] []
