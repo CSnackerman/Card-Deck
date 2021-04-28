@@ -200,7 +200,7 @@ class CardDeck:
 		
 		# declarations
 		output_string = COLOR
-		columns = 9
+		columns = 7
 		
 
 		# loop through every card in order to 
