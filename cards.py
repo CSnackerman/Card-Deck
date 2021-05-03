@@ -29,6 +29,15 @@ WHITE 	 =	"\u001b[0m"
 # set the primary color
 COLOR = RED
 
+# deck display settings
+SHOW_CARD_NUMBER = True
+DECK_PRINT_COLUMNS = 26
+
+# debugging switches
+DEBUG = False
+
+DEBUG_CARD = True and DEBUG
+DEBUG_DECK = False and DEBUG
 
 # ---------------------
 
@@ -39,7 +48,7 @@ COLOR = RED
 #=========
 
 SPADE 	=  0
-CLUB 		=  1
+CLUB 	=  1
 HEART 	=  2
 DIAMOND =  3
 
@@ -91,7 +100,7 @@ def numbertosuit(num):
 class Card:
 	
 	#-------------
-	# Function 1 │ ---> initializer/startup/setup
+	# Function   │ ---> object initializer/startup/setup
 	#-------------
 	def __init__ (self, s, v):
 
@@ -113,13 +122,19 @@ class Card:
 		if self.getname() == "error":
 			self.value = 0
 
+		return
+
 
 	#-------------
-	# Function 2 │ ---> get string representation of this Card instance (for print)
+	# Function   │ ---> get string representation of this Card instance (for print)
 	#-------------
 	def __str__(self):
+	
 		n = self.getname()
 		s = self.suit_sym()
+
+		# debug
+		if DEBUG_CARD : print ("n =", n, "s =", s)
 
 		outputstr = COLOR
 
@@ -132,31 +147,31 @@ class Card:
 
 
 	#-------------
-	# Function 3 │ ---> get the SUIT VALUE of this Card instance
+	# Function   │ ---> get the SUIT VALUE of this Card instance
 	#-------------	
 	def suit_val(self):
 		return self.suit[0]
 
 	#-------------
-	# Function 4 │ ---> get the SUIT SYMBOL of this Card instance
+	# Function   │ ---> get the SUIT SYMBOL of this Card instance
 	#-------------
 	def suit_sym(self):
 		return self.suit[1]
 
 	#-------------
-	# Function 5 │ ---> get the NAME of a Card instance
+	# Function   │ ---> get the NAME of a Card instance
 	#-------------
 	def getname(self):
 		return self.name
 
 	#-------------
-	# Function 6 │ ---> get the VALUE of a Card instance
+	# Function   │ ---> get the VALUE of a Card instance
 	#-------------
 	def value(self):
 		return self.value
 
 	#-------------
-	# Function 7 │ ---> randomly changes the suit & val and name
+	# Function   │ ---> randomly changes the suit & val and name
 	#-------------
 	def randomize(self):
 		self.value = random.randint (1, 14)
@@ -166,6 +181,8 @@ class Card:
 		self.suit = numbertosuit (s)
 		
 		self.name = valuetoname (self.value)
+
+		return
 
 
 
@@ -178,7 +195,10 @@ class CardDeck:
 	#-------------
 	# Function 11 │ ---> initializer/startup/setup
 	#-------------
-	def __init__(self, numcards=52):
+	def __init__(self, owner="dealer", numcards=52):
+
+		# set the owner
+		self.owner = owner
 		
 		# init num_cards
 		self.numcards = numcards
@@ -193,28 +213,55 @@ class CardDeck:
 				temp_card = Card(suit_val, card_val + 1)
 				self.cards.append(temp_card) 
 
+		
+		# set top/bottom indices
+		self.top = 0
+		self.bottom = numcards - 1
+
+		return
+
 
 	#-------------
-	# Function 8 │ ---> convert the data of this CardDeck to a string (for print)
+	# Function   │ ---> convert the data of this CardDeck to a string (for print)
 	#-------------
 	def __str__(self):
 		
 		# declarations
 		output_string = COLOR
-		columns = 7
 
-		print ("numcards =", self.numcards)	# DEBUG
-		print ("decksize =", len(self.cards))
+		# DEBUG
+		if DEBUG_DECK:
+			print ("numcards =", self.numcards)	
+			print ("decksize =", len(self.cards)) 
 		
 
 		# loop through every card in order to 
 		# print 4 rows of characters which
 		# represent the columns of cards
-		for card in range(0, self.numcards, columns):
+		for card in range(0, self.numcards, DECK_PRINT_COLUMNS):
+
+			# --- number row (0th) ---
+			if SHOW_CARD_NUMBER:
+
+				for col in range(DECK_PRINT_COLUMNS):
+
+					# guard out of range
+					if card + col >= self.numcards:
+						break
+					
+					# add a card number label
+					if (card + col) >= 10:
+						output_string += " " + str (card + col) + "  "
+					else:
+						output_string += " " + str (card + col) + "   "
+
+
+			# go to next line
+			output_string += "\n"
 			
 
 			# --- 1st row ---
-			for col in range(columns):
+			for col in range(DECK_PRINT_COLUMNS):
 
 				# guard - out of range
 				if card + col >= self.numcards:
@@ -229,7 +276,7 @@ class CardDeck:
 
 
 			# --- 2nd row (name row) ---
-			for col in range(columns):
+			for col in range(DECK_PRINT_COLUMNS):
 
 				# guard - out of range
 				if card + col >= self.numcards:
@@ -252,7 +299,7 @@ class CardDeck:
 
 
 			# --- 3rd row (suit row) ---
-			for col in range(columns):
+			for col in range(DECK_PRINT_COLUMNS):
 
 				# guard - out of range
 				if card + col >= self.numcards:
@@ -275,7 +322,7 @@ class CardDeck:
 
 
 			# --- 4th row ---
-			for col in range(columns):
+			for col in range(DECK_PRINT_COLUMNS):
 
 				# guard - out of range
 				if card + col >= self.numcards:
@@ -294,23 +341,49 @@ class CardDeck:
 
 
 	#-------------
-	# Function 9 │ ---> shuffle the CardDeck cards list
+	# Function   │ ---> shuffle the CardDeck cards list
 	#-------------
 	def shuffle(self):
 
 		random.shuffle(self.cards)
 
+		return
+
 
 	#-------------
-	# Function 10 │ ---> draw a card off the top of the deck
+	# Function   │ ---> draw a card off the top of the deck
 	#-------------
 	def draw(self):
-        
-		drawn = self.cards.pop()
+		
+		# store the top card in variable drawn
+		drawn = self.cards [self.top]
 
+		# delete the top card from the deck
+		self.cards.pop (self.top)
+
+		# update bottom index
+		self.bottom -= 1
+
+		# reduce number of cards in deck
 		self.numcards += -1
 
 		return drawn
+
+	
+	#-------------
+	# Function   │ ---> draw a card off the top of the deck
+	#-------------
+	def addtobottom (self, card):
+
+		# increase bottom index
+		self.bottom += 1
+		self.numcards += 1
+
+		# add the card
+		self.cards.insert (self.bottom, card)
+
+		return
+
 
 
 # TEST CODE
