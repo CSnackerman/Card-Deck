@@ -31,7 +31,7 @@ COLOR = RED
 
 # deck display settings
 SHOW_CARD_NUMBER = True
-DECK_PRINT_COLUMNS = 26
+DECK_PRINT_COLUMNS = 7
 
 # debugging switches
 DEBUG = False
@@ -139,9 +139,9 @@ class Card:
 		outputstr = COLOR
 
 		if n == "10":
-			outputstr += "┍━━┑" + "\n│" + "1" + s + "│"+ "\n│" + s + "0" + "│" + "\n┕━━┙"
+			outputstr += "┏━━┓" + "\n┃" + "1" + s + "┃"+ "\n┃" + s + "0" + "┃" + "\n┗━━┛"
 		else:
-			outputstr += "┍━━┑" + "\n│" + n + s + "│"+ "\n│" + s + n + "│" + "\n┕━━┙"
+			outputstr += "┏━━┓" + "\n┃" + n + s + "┃"+ "\n┃" + s + n + "┃" + "\n┗━━┛"
 
 		return outputstr + WHITE
 
@@ -268,7 +268,7 @@ class CardDeck:
 					break
 
 				# append to the output 
-				output_string += "┍━━┑ "
+				output_string += "┏━━┓ "
 
 
 			# go to next line
@@ -289,9 +289,9 @@ class CardDeck:
 
 				# append to the output
 				if name == "10":
-					output_string += "│1" + suit + "│ "
+					output_string += "┃1" + suit + "┃ "
 				else:
-					output_string += "│" + name + suit + "│ "
+					output_string += "┃" + name + suit + "┃ "
 
 
 			# go to next line
@@ -312,9 +312,9 @@ class CardDeck:
 
 				# append to output
 				if name == "10":
-					output_string += "│" + suit +  "0│ "
+					output_string += "┃" + suit +  "0┃ "
 				else:
-					output_string += "│" + suit + name + "│ "
+					output_string += "┃" + suit + name + "┃ "
 
 			
 			# go to next line
@@ -329,7 +329,7 @@ class CardDeck:
 					break
 
 				# append to output
-				output_string += "┕━━┙ "
+				output_string += "┗━━┛ "
 
 			# go to next line
 			output_string += "\n"

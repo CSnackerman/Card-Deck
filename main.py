@@ -120,3 +120,11 @@ printhand (player2)
 # print the dealer's deck after dealing
 print ("--- after ---")
 print (dealdeck)
+
+
+random_card = Card(SPADE, 14)
+
+random_card.randomize()
+
+print ("--- random card ---")
+print (random_card)
