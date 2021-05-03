@@ -226,8 +226,8 @@ class CardDeck:
 	#-------------
 	def __str__(self):
 		
-		# declarations
-		output_string = COLOR
+		# what will be returned
+		output_string = ""
 
 		# DEBUG
 		if DEBUG_DECK:
@@ -240,8 +240,14 @@ class CardDeck:
 		# represent the columns of cards
 		for card in range(0, self.numcards, DECK_PRINT_COLUMNS):
 
+			if card == 0:
+				output_string += "top\n"
+
 			# --- number row (0th) ---
 			if SHOW_CARD_NUMBER:
+				
+				# make number text color white
+				output_string += WHITE
 
 				for col in range(DECK_PRINT_COLUMNS):
 
@@ -257,7 +263,7 @@ class CardDeck:
 
 
 			# go to next line
-			output_string += "\n"
+			output_string += COLOR + "\n"
 			
 
 			# --- 1st row ---
