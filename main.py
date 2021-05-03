@@ -8,8 +8,8 @@ deck = cards.CardDeck()
 deck.shuffle()
 
 # view the deck laid out
-print ("--- shuffled deck ---")
-print (deck)
+#print ("--- shuffled deck ---")
+#print (deck)
 
 
 # create an empty list called player_hand to hold cards
@@ -20,13 +20,50 @@ drawn = deck.draw()
 player_hand.append(drawn)
 drawn = deck.draw()
 player_hand.append(drawn)
-
-# print each card in player_hand
+drawn = deck.draw()
+player_hand.append(drawn)
+drawn = deck.draw()
+player_hand.append(drawn)
+drawn = deck.draw()
+player_hand.append(drawn)
+drawn = deck.draw()
+player_hand.append(drawn)
+drawn = deck.draw()
+player_hand.append(drawn)
 print ("--- my cards ---")
 
 for card in player_hand:
+# print each card in player_hand
     print(card)
 
+# Then print the first card in deck
+
+use_card = []
+use_card.append(drawn)
+
+print (card)
+
+
+
+#if the suits match and if the card is one below or above 
+
+
+
+user_input=input(">")
+
+
+# to compare suits
+card1 = use_card [0]
+card2 = player_hand [user_input]
+if card1.suit_val() == card2.suit_val():
+	print ("that works")
+
+
+
+
+
+
+
 # print the updated deck
-print ("--- updated deck ---")
-print (deck)
+#print ("--- updated deck ---")
+#print (deck)

@@ -4,10 +4,10 @@ from os import system
 #*********************************************************
 # SPECIAL ENGLISH DEFINITIONS
 #	
-# 	class		 -  a blueprint for collection of data
+# class		     -  a blueprint for collection of data
 #
 #	instantiate  -  to ⚡zap⚡ into existence...
-#					 (allocate 💻memory💻 for)
+#					          (allocate 💻memory💻 for)
 #
 #	object	  	 -  a class which has been instantiated
 #
@@ -39,7 +39,7 @@ COLOR = RED
 #=========
 
 SPADE 	=  0
-CLUB 	=  1
+CLUB 		=  1
 HEART 	=  2
 DIAMOND =  3
 
@@ -74,10 +74,10 @@ def valuetoname(val):
 
 # convert a number inclusive between 0 and 3 to a suit symbol
 def numbertosuit(num):
-	if   num == SPADE	:	return [0, "♠︎"]
-	elif num == CLUB	:	return [1, "♣︎"]
-	elif num == HEART	:	return [2, "♥︎"]
-	elif num == DIAMOND : 	return [3, "♦︎"]
+	if   num == SPADE		:	return [0, "♠︎"]
+	elif num == CLUB		:	return [1, "♣︎"]
+	elif num == HEART		:	return [2, "♥︎"]
+	elif num == DIAMOND : return [3, "♦︎"]
 	else:
 		print ("invalid suit number")
 		return [-1, "error"]
@@ -176,7 +176,7 @@ class Card:
 class CardDeck:
 
 	#-------------
-	# Function 7 │ ---> initializer/startup/setup
+	# Function 11 │ ---> initializer/startup/setup
 	#-------------
 	def __init__(self, numcards=52):
 		
@@ -305,7 +305,7 @@ class CardDeck:
 	# Function 10 │ ---> draw a card off the top of the deck
 	#-------------
 	def draw(self):
-
+        
 		drawn = self.cards.pop()
 
 		self.numcards += -1
@@ -316,18 +316,5 @@ class CardDeck:
 # TEST CODE
 
 if __name__ == "__main__":
-	
-	deck = CardDeck()
 
-	deck.shuffle()
-
-	system("clear")
-
-	print ("--- shuffle ---")
-	print (deck)
-
-	print ("\n\n")
-
-	mycard = Card(HEART, 14)
-
-	print (mycard)
+	print ("import the cards module to use")
