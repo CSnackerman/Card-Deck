@@ -110,13 +110,13 @@ class Card:
 		self.value = None
 
 		# init suit
-		self.suit = numbertosuit(s) 
+		self.suit = numbertosuit (s) 
 
 		# init value
 		self.value = v
 
 		# init name
-		self.name = valuetoname(self.value)
+		self.name = valuetoname (self.value)
 
 		# set the card value to zero if invalid number (prevent cheating!)
 		if self.getname() == "error":
@@ -130,8 +130,8 @@ class Card:
 	#-------------
 	def __str__(self):
 	
-		n = self.getname()
-		s = self.suit_sym()
+		n = self.getname ()
+		s = self.suit_sym ()
 
 		# debug
 		if DEBUG_CARD : print ("n =", n, "s =", s)
@@ -149,31 +149,31 @@ class Card:
 	#-------------
 	# Function   │ ---> get the SUIT VALUE of this Card instance
 	#-------------	
-	def suit_val(self):
+	def suit_val (self):
 		return self.suit[0]
 
 	#-------------
 	# Function   │ ---> get the SUIT SYMBOL of this Card instance
 	#-------------
-	def suit_sym(self):
+	def suit_sym (self):
 		return self.suit[1]
 
 	#-------------
 	# Function   │ ---> get the NAME of a Card instance
 	#-------------
-	def getname(self):
+	def getname (self):
 		return self.name
 
 	#-------------
 	# Function   │ ---> get the VALUE of a Card instance
 	#-------------
-	def value(self):
+	def getvalue(self):
 		return self.value
 
 	#-------------
 	# Function   │ ---> randomly changes the suit & val and name
 	#-------------
-	def randomize(self):
+	def randomize (self):
 		self.value = random.randint (1, 14)
 
 		s = random.randint (0, 3)
@@ -195,7 +195,7 @@ class CardDeck:
 	#-------------
 	# Function 11 │ ---> initializer/startup/setup
 	#-------------
-	def __init__(self, owner="dealer", numcards=52):
+	def __init__ (self, owner="dealer", numcards=52):
 
 		# set the owner
 		self.owner = owner
@@ -224,7 +224,7 @@ class CardDeck:
 	#-------------
 	# Function   │ ---> convert the data of this CardDeck to a string (for print)
 	#-------------
-	def __str__(self):
+	def __str__ (self):
 		
 		# what will be returned
 		output_string = ""
@@ -349,9 +349,9 @@ class CardDeck:
 	#-------------
 	# Function   │ ---> shuffle the CardDeck cards list
 	#-------------
-	def shuffle(self):
+	def shuffle (self):
 
-		random.shuffle(self.cards)
+		random.shuffle (self.cards)
 
 		return
 
@@ -359,7 +359,7 @@ class CardDeck:
 	#-------------
 	# Function   │ ---> draw a card off the top of the deck
 	#-------------
-	def draw(self):
+	def draw (self):
 		
 		# store the top card in variable drawn
 		drawn = self.cards [self.top]
@@ -390,7 +390,22 @@ class CardDeck:
 
 		return
 
+	def getlist (self):
+		copy = self.cards
+		return copy
 
+	# created by Lucas Martin
+	def getcards (self, selection):
+
+		x = selection.split()
+
+		numberlist = []
+		
+		
+		for num in x:
+			numberlist.append(self.cards[int(num)])
+
+		return numberlist
 
 # TEST CODE
 

@@ -1,90 +1,83 @@
 from cards import Card, CardDeck
 from cards import CLUB, SPADE, DIAMOND, HEART
 
-# # create a deck of cards object
-# deck = cards.CardDeck()
+#**********************************#
+# * * * Function Definitions * * * #
+#**********************************#
 
+def checksuit(cardset):
 
-# # mixup the cards
-# deck.shuffle()
+	matchfound = True
+	# check if all the suits are the same
+	# if list_of_cards.suit_val() == random_card.suit_val():
 
-# # view the deck laid out
-# #print ("--- shuffled deck ---")
-# #print (deck)
+	# guard statement
+	if len(cardset) == 0:
+			return False
 
+	# get the suit of the first card in cardset
+	suitoffirst = cardset[0]  # <-- suitoffirst holds a card
+	suitoffirst = suitoffirst.suit_val()  # <-- suitoffirst holds a suit value
+	
+	# check if each card suit @ i matches the first card
+	for i in range( 1, len(cardset) ):
 
-# # create an empty list called player_hand to hold cards
-# player_hand = []
+			suitofi = cardset [i]
+			suitofi = suitofi.suit_val()
 
-# # fill the player_hand with cards
-# drawn = deck.draw()
-# player_hand.append(drawn)
-# drawn = deck.draw()
-# player_hand.append(drawn)
-# drawn = deck.draw()
-# player_hand.append(drawn)
-# drawn = deck.draw()
-# player_hand.append(drawn)
-# drawn = deck.draw()
-# player_hand.append(drawn)
-# drawn = deck.draw()
-# player_hand.append(drawn)
-# drawn = deck.draw()
-# player_hand.append(drawn)
-# print ("--- my cards ---")
+			if suitoffirst != suitofi:
+				matchfound = False
+		
+	return matchfound   
+   
+def checkvalue(cardset):
+  matchfound = True		
+  valoffirst = cardset[0]    
+  valoffirst = valoffirst.getvalue()
+  for ij in range( 1, len(cardset) ):
+			number = cardset [ij]
+			number = number.getvalue()
+			
+			if valoffirst != number:
+				matchfound = False  
 
-# for card in player_hand:
-# # print each card in player_hand
-#     print(card)
+  return matchfound
 
-# # Then print the first card in deck
+# TODO
+def checkrun(cardset):
+	valofirst = cardset[0]
+	valofirst = valofirst.getvalue()
+	for i in range( 1, len(cardset) ):
+		number = cardset [i]
+		number = number.getvalue()
+		if number == valofirst + 1:
+			matchfound = True 
 
-# use_card = []
-# use_card.append(drawn)
-
-# print (card)
-
-
-
-# #if the suits match and if the card is one below or above 
-
-
-
-# user_input=input(">")
-
-
-# # to compare suits
-# card1 = use_card [0]
-# card2 = player_hand [user_input]
-# if card1.suit_val() == card2.suit_val():
-# 	print ("that works")
-
-
-
-
-
-
-
-# print the updated deck
-#print ("--- updated deck ---")
-#print (deck)
-
-
-# function for printing a player hand
-def printhand (cardhand):
-
-    
-
-    print ("--- ", cardhand.owner, "\'s hand ---", sep="")
-
-    if cardhand.numcards == 0:
-        print ("* empty *")
-    else:
-        print (cardhand)
-
+  if number == valoffirst + 1:
     return
 
-# =====================================================================
+# function for printing a player hand
+def printhand(cardhand):
+
+	print("--- ", cardhand.owner, "\'s hand ---", sep="")
+
+	if cardhand.numcards == 0:
+			print("* empty *")
+	else:
+			print(cardhand)
+
+	return
+
+
+def printcards(cardlist):
+	for card in cardlist:
+		print (card)
+
+
+#*********************************#
+# * * * * * Driver Code * * * * * #
+#*********************************#
+
 
 # create the dealer with a standard deck
 dealdeck = CardDeck()
@@ -94,37 +87,42 @@ dealdeck.shuffle()
 player1 = CardDeck ("player1", 0)
 player2 = CardDeck ("player2", 0)
 
-# print the freshly shuffled deck
-print ("--- before ---")
-print (dealdeck)
-
 # fill each player's hand:
 max_cards_in_hand = 7
-
 for i in range (max_cards_in_hand):
+  
+  # player 1
+  drawn = dealdeck.draw()
+  player1.addtobottom ( drawn )
 
-    # player 1
-    drawn = dealdeck.draw()
-    player1.addtobottom ( drawn )
+  # player 2
+  drawn = dealdeck.draw()
+  player2.addtobottom ( drawn )
 
-    # player 2
-    drawn = dealdeck.draw()
-    player2.addtobottom ( drawn )
-
-# ---
+player1.addtobottom (dealdeck.draw())
 
 # display hands
 printhand (player1)
-printhand (player2)
+# printhand (player2)
 
-# print the dealer's deck after dealing
-print ("--- after ---")
-print (dealdeck)
+# ask player1 to select some cards from hand
+mycardstocheck = input ("which cards?")
+
+selectedcards = player1.getcards (mycardstocheck)
+
+print ("--- player1 selected cards ---")
+printcards (selectedcards)
+
+if checksuit (selectedcards):
+  print ("match")
+else:
+	print ("missmatch")
+# if checkvalue (selectedcards):
+# 	print ("match")
 
 
-random_card = Card(SPADE, 14)
 
-random_card.randomize()
 
-print ("--- random card ---")
-print (random_card)
+
+
+
