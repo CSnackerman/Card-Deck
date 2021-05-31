@@ -1,5 +1,6 @@
 from cards import Card, CardDeck
 from cards import CLUB, SPADE, DIAMOND, HEART
+from os import system
 
 #**********************************#
 # * * * Function Definitions * * * #
@@ -31,30 +32,42 @@ def checksuit(cardset):
 	return matchfound   
    
 def checkvalue(cardset):
+	
   matchfound = True		
   valoffirst = cardset[0]    
   valoffirst = valoffirst.getvalue()
   for ij in range( 1, len(cardset) ):
-			number = cardset [ij]
-			number = number.getvalue()
+			second = cardset [ij]
+			second = second.getvalue()
 			
-			if valoffirst != number:
+			if valoffirst != second:
 				matchfound = False  
 
   return matchfound
 
-# TODO
-def checkrun(cardset):
-	valofirst = cardset[0]
-	valofirst = valofirst.getvalue()
-	for i in range( 1, len(cardset) ):
-		number = cardset [i]
-		number = number.getvalue()
-		if number == valofirst + 1:
-			matchfound = True 
 
-  if number == valoffirst + 1:
-    return
+def checkrun(cardset):
+	matchfound = True
+	
+	if checksuit(cardset):
+		print ("the suits matched, so we move forward to check the values")
+	else:
+		return False
+
+	for i in range( 1, len(cardset) ):
+
+		first = cardset[i - 1]
+		first = first.getvalue()
+		
+		second = cardset [i]
+		second = second.getvalue()
+		if second != first + 1:
+			matchfound = False
+		if second == first - 1:
+			matchfound = True
+	
+	
+	return matchfound
 
 # function for printing a player hand
 def printhand(cardhand):
@@ -70,10 +83,14 @@ def printhand(cardhand):
 
 
 def printcards(cardlist):
-	for card in cardlist:
+	
+	if  (cardlist) == False:
+		print ("cannot print empty list\n")
+		return 
+	for card in cardlist: 
 		print (card)
 
-
+	
 #*********************************#
 # * * * * * Driver Code * * * * * #
 #*********************************#
@@ -87,38 +104,67 @@ dealdeck.shuffle()
 player1 = CardDeck ("player1", 0)
 player2 = CardDeck ("player2", 0)
 
-# fill each player's hand:
-max_cards_in_hand = 7
-for i in range (max_cards_in_hand):
+# create the table deck
+table = CardDeck ("table", 0)
+
+# # fill each player's hand:
+# max_cards_in_hand = 7
+# for i in range (max_cards_in_hand):
   
-  # player 1
-  drawn = dealdeck.draw()
-  player1.addtobottom ( drawn )
+# 	# player 1
+# 	drawn = dealdeck.draw()
+# 	player1.addtobottom ( drawn )
 
-  # player 2
-  drawn = dealdeck.draw()
-  player2.addtobottom ( drawn )
 
-player1.addtobottom (dealdeck.draw())
+# 	# player 2
+# 	drawn = dealdeck.draw()
+# 	player2.addtobottom ( drawn )
 
-# display hands
-printhand (player1)
-# printhand (player2)
+player1.addtobottom (Card (SPADE, 2))
+player1.addtobottom (Card (SPADE, 3))
+player1.addtobottom (Card (SPADE, 4))
+player1.addtobottom (Card (SPADE, 5))
 
-# ask player1 to select some cards from hand
-mycardstocheck = input ("which cards?")
 
-selectedcards = player1.getcards (mycardstocheck)
+# primary loop
+while True:
+	printhand (table)
+	# display hands
+	printhand (player1)
+	printhand (player2)
 
-print ("--- player1 selected cards ---")
-printcards (selectedcards)
+	# ask player1 to select some cards from hand
+	mycardstocheck = input ("which cards?")
 
-if checksuit (selectedcards):
-  print ("match")
-else:
-	print ("missmatch")
-# if checkvalue (selectedcards):
-# 	print ("match")
+	system ("clear")
+
+	selectedcards = player1.getcards (mycardstocheck)
+
+	print ("--- player1 selected cards ---")
+	printcards (selectedcards)
+
+		
+	if checkrun (selectedcards):
+		print ("run match")
+		# remove the cards from the player hand
+		player1.removecards (selectedcards)
+
+		# place the cards on the table
+		table.addcards(selectedcards)
+	else:
+		print ("run missmiatch")	
+
+	# if checkvalue (selectedcards):
+	# 	print ("val match")
+	# else:
+	# 	print ("val missmatch") 
+
+
+
+
+
+
+
 
 
 

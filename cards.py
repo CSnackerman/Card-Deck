@@ -37,7 +37,7 @@ DECK_PRINT_COLUMNS = 7
 DEBUG = False
 
 DEBUG_CARD = True and DEBUG
-DEBUG_DECK = False and DEBUG
+DEBUG_DECK = True and DEBUG
 
 # ---------------------
 
@@ -57,7 +57,7 @@ TOTAL 	=  4
 
 #=-=-=-=-=-=-=-=-=-=|
 # Utility Functions |
-#	(converters)	|
+#	(converters)	    |
 #=-=-=-=-=-=-=-=-=-=|
 
 # convert a card value into a name string 
@@ -372,7 +372,7 @@ class CardDeck:
 
 		# reduce number of cards in deck
 		self.numcards += -1
-
+		
 		return drawn
 
 	
@@ -395,20 +395,41 @@ class CardDeck:
 		return copy
 
 	# created by Lucas Martin
+	def addcards (self, cardlist):
+		for each in (cardlist):
+			self.addtobottom(each)
+
+	# created by Lucas Martin
 	def getcards (self, selection):
 
 		x = selection.split()
 
 		numberlist = []
-		
-		
+		if len (x) < 3:
+			return False
+			
+		# fills up the list
 		for num in x:
 			numberlist.append(self.cards[int(num)])
-
+		
 		return numberlist
 
+	# created by Lucas Martin
+	def removecards(self, selection):
+		for each in (selection):
+			if (each) in self.cards: # if this is true the card is removed
+				self.cards.remove(each)
+				self.numcards -= 1
+
+
+
+	
+
+	
 # TEST CODE
 
 if __name__ == "__main__":
 
 	print ("import the cards module to use")
+
+
